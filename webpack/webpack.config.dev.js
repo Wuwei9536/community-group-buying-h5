@@ -12,6 +12,7 @@ module.exports = merge(baseWebpackConfig, {
     host: '127.0.0.1',
     port: 8000,
     stats: 'errors-only',
+    open: true,
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),

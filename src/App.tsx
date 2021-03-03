@@ -1,13 +1,28 @@
-import React from "react";
-import styles from "./App.less";
-import logo from "./logo.svg";
+import React, { Suspense } from 'react';
+import styles from './App.less';
+import { Router, Route, Switch } from 'react-router-dom';
+import history from './common/history';
+import routes from './routes';
+
+const SuspenseWrap = (LazyComponent: React.LazyExoticComponent<() => JSX.Element>, props: any) => {
+  console.log('LazyComponent: ', LazyComponent);
+  return (
+    <Suspense fallback={<div />}>
+      <LazyComponent {...props} />
+    </Suspense>
+  );
+};
 
 function App() {
   return (
-    <div className={styles.app}>
-      <img src={logo} className="App-logo" alt="logo" />
-      reacs4ft
-    </div>
+    <Router history={history}>
+      <Switch>
+        {routes.map(({ path, Component }) => (
+          // @ts-ignore
+          <Route exact path={path} key={path} render={(props) => SuspenseWrap(Component, props)} />
+        ))}
+      </Switch>
+    </Router>
   );
 }
 

@@ -2,7 +2,6 @@ const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-const postcssPresetEnv = require('postcss-preset-env')
 const WebpackBar = require('webpackbar')
 
 module.exports = {
@@ -10,7 +9,6 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, '../dist'),
     filename: 'public/js/[name].[hash].js',
-    publicPath: 'https://cdn.fastrtc.wuwei.tech/',
   },
   module: {
     rules: [
@@ -42,8 +40,8 @@ module.exports = {
           {
             loader: 'postcss-loader',
             options: {
-              plugins: () => {
-                return [postcssPresetEnv()]
+              postcssOptions: {
+                plugins: ['postcss-preset-env'],
               },
             },
           },
@@ -69,7 +67,9 @@ module.exports = {
           {
             loader: 'postcss-loader',
             options: {
-              plugins: () => [postcssPresetEnv()],
+              postcssOptions: {
+                plugins: ['postcss-preset-env'],
+              },
             },
           },
           {
